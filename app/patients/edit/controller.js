@@ -76,8 +76,10 @@ export default AbstractEditController.extend(BloodTypes, ReturnTo, UserSession, 
     'Private'
   ],
 
-  filesystem: Ember.inject.service(),
   database: Ember.inject.service(),
+  filesystem: Ember.inject.service(),
+  // TODO: could inject later everywhere with an initializer, see http://stonecircle.github.io/ember-cli-notifications/
+  notifications: Ember.inject.service('notification-messages'),
   patientController: Ember.inject.controller('patients'),
 
   addressOptions: Ember.computed.alias('patientController.addressOptions'),
@@ -526,14 +528,10 @@ export default AbstractEditController.extend(BloodTypes, ReturnTo, UserSession, 
     this.send('closeModal');
   },
 
-  afterUpdate: function(record) {
-    this.send('openModal', 'dialog', Ember.Object.create({
-      title: this.get('i18n').t('patients.titles.savedPatient'),
-      message: this.get('i18n').t('patients.messages.savedPatient', record),
-      updateButtonAction: 'returnToPatient',
-      updateButtonText: this.get('i18n').t('patients.buttons.backToPatients'),
-      cancelButtonText: this.get('i18n').t('buttons.close')
-    }));
+  afterUpdate: function() {
+    this.get('notifications').success('Saved successfully!', {
+      autoClear: true
+    });
   }
 
 });
