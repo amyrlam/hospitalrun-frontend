@@ -6,6 +6,9 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'hash', // Using hash location type because it is more friendly for offline.
+    'ember-cli-notifications': {
+      icons: 'bootstrap'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
