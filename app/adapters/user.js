@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import UserSession from 'hospitalrun/mixins/user-session';
+const { $, computed, inject, get, isEmpty } = Ember;
+
 export default DS.RESTAdapter.extend(UserSession, {
-  database: Ember.inject.service(),
-  session: Ember.inject.service(),
+  database: inject.service(),
+  session: inject.service(),
   endpoint: '/db/_users/',
   defaultSerializer: 'couchdb',
-  oauthHeaders: Ember.computed.alias('database.oauthHeaders'),
+  oauthHeaders: computed.alias('database.oauthHeaders'),
 
   ajaxError: function(jqXHR) {
     let error = this._super(jqXHR);
@@ -121,7 +123,7 @@ export default DS.RESTAdapter.extend(UserSession, {
       delete data.oauth;
       data.roles = ['deleted'];
     }
-    if (Ember.isEmpty(data._rev)) {
+    if (isEmpty(data._rev)) {
       delete data._rev;
     }
     data = this._cleanPasswordAttrs(data);
@@ -169,7 +171,7 @@ export default DS.RESTAdapter.extend(UserSession, {
       'iterations'
     ];
     attrsToCheck.forEach(function(attr) {
-      if (Ember.isEmpty(data[attr])) {
+      if (isEmpty(data[attr])) {
         delete data[attr];
       }
     });

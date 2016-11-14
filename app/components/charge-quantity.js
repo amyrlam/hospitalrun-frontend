@@ -1,6 +1,8 @@
 import Ember from 'ember';
-export default Ember.Component.extend({
-  i18n: Ember.inject.service(),
+const { Component, computed, inject, isEmpty } = Ember;
+
+export default Component.extend({
+  i18n: inject.service(),
   classNames: ['col-xs-2', 'form-group'],
   classNameBindings: ['hasError'],
   tagName: 'td',
@@ -13,7 +15,7 @@ export default Ember.Component.extend({
 
   hasError: function() {
     let quantitySelected = this.get('quantitySelected');
-    return (!Ember.isEmpty(quantitySelected) && isNaN(quantitySelected));
+    return (!isEmpty(quantitySelected) && isNaN(quantitySelected));
   }.property('quantitySelected'),
 
   quantityHelp: function() {

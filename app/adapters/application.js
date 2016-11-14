@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { Adapter } from 'ember-pouch';
 import PouchAdapterUtils from 'hospitalrun/mixins/pouch-adapter-utils';
+const { $, A, computed, copy, inject, isArray, isEmpty, get, K, RSVP } = Ember;
 
 const {
   run: {
@@ -9,8 +10,8 @@ const {
 } = Ember;
 
 export default Adapter.extend(PouchAdapterUtils, {
-  database: Ember.inject.service(),
-  db: Ember.computed.reads('database.mainDB'),
+  database: inject.service(),
+  db: computed.reads('database.mainDB'),
 
   _specialQueries: [
     'containsValue',
@@ -26,7 +27,7 @@ export default Adapter.extend(PouchAdapterUtils, {
       if (query.containsValue && query.containsValue.value) {
         let queryString = '';
         query.containsValue.keys.forEach((key) => {
-          if (!Ember.isEmpty(queryString)) {
+          if (!isEmpty(queryString)) {
             queryString = `${queryString} OR `;
           }
           let queryValue = query.containsValue.value;
@@ -129,7 +130,7 @@ export default Adapter.extend(PouchAdapterUtils, {
         live: true,
         returnDocs: false
       }).on('change', bind(this, 'onChange')
-      ).on('error', Ember.K); // Change sometimes throws weird 500 errors that we can ignore
+      ).on('error', K); // Change sometimes throws weird 500 errors that we can ignore
       db.changesListener = this.changes;
     }
   },
@@ -159,7 +160,7 @@ export default Adapter.extend(PouchAdapterUtils, {
       let mapReduce = null;
       let queryParams = {};
       if (query.options) {
-        queryParams = Ember.copy(query.options);
+        queryParams = copy(query.options);
         if (query.sortKey || query.filterBy) {
           if (query.sortDesc) {
             queryParams.sortDesc = query.sortDesc;

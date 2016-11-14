@@ -1,7 +1,11 @@
+/*jshint -W079 */
+
 import AbstractEditRoute from 'hospitalrun/routes/abstract-edit-route';
 import Ember from 'ember';
 import { translationMacro as t } from 'ember-i18n';
 import UserSession from 'hospitalrun/mixins/user-session';
+const { Object, RSVP } = Ember;
+
 export default AbstractEditRoute.extend(UserSession, {
   hideNewButton: true,
   editTitle: t('admin.loaddb.editTitle'),
@@ -14,6 +18,6 @@ export default AbstractEditRoute.extend(UserSession, {
 
   // No model needed for import.
   model: function() {
-    return Ember.RSVP.resolve(Ember.Object.create({}));
+    return RSVP.resolve(Object.create({}));
   }
 });

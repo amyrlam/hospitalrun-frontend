@@ -1,12 +1,14 @@
 import AbstractEditRoute from 'hospitalrun/routes/abstract-edit-route';
 import Ember from 'ember';
 import { translationMacro as t } from 'ember-i18n';
+const { RSVP } = Ember;
+
 export default AbstractEditRoute.extend({
   hideNewButton: true,
   newTitle: t('admin.address.newTitle'),
   editTitle: t('admin.address.editTitle'),
   model: function() {
-    return new Ember.RSVP.Promise(function(resolve) {
+    return new RSVP.Promise(function(resolve) {
       this.get('store').find('option', 'address_options').then(function(addressOptions) {
         resolve(addressOptions);
       }, function() {

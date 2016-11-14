@@ -3,10 +3,12 @@ import AppointmentStatuses from 'hospitalrun/mixins/appointment-statuses';
 import Ember from 'ember';
 import SelectValues from 'hospitalrun/utils/select-values';
 import VisitTypes from 'hospitalrun/mixins/visit-types';
+const { computed, inject, isEmpty } = Ember;
+
 export default AppointmentIndexController.extend(AppointmentStatuses, VisitTypes, {
-  appointmentsController: Ember.inject.controller('appointments'),
+  appointmentsController: inject.controller('appointments'),
   appointmentType: null,
-  physicians: Ember.computed.alias('appointmentsController.physicianList.value'),
+  physicians: computed.alias('appointmentsController.physicianList.value'),
   physicianList: function() {
     return SelectValues.selectValues(this.get('physicians'), true);
   }.property('physicians'),
@@ -19,7 +21,7 @@ export default AppointmentIndexController.extend(AppointmentStatuses, VisitTypes
   startDate: null,
   startKey: [],
   status: null,
-  visitTypesList: Ember.computed.alias('appointmentsController.visitTypesList'),
+  visitTypesList: computed.alias('appointmentsController.visitTypesList'),
 
   actions: {
     search: function() {
@@ -33,25 +35,25 @@ export default AppointmentIndexController.extend(AppointmentStatuses, VisitTypes
       let status = this.get('model.selectedStatus');
       let startDate = this.get('model.selectedStartingDate');
 
-      if (Ember.isEmpty(appointmentType)) {
+      if (isEmpty(appointmentType)) {
         fieldsToSet.appointmentType = null;
       } else {
         fieldsToSet.appointmentType = appointmentType;
       }
-      if (Ember.isEmpty(provider)) {
+      if (isEmpty(provider)) {
         fieldsToSet.provider = null;
       } else {
         fieldsToSet.provider = provider;
       }
-      if (Ember.isEmpty(status)) {
+      if (isEmpty(status)) {
         fieldsToSet.status = null;
       } else {
         fieldsToSet.status = status;
       }
-      if (!Ember.isEmpty(startDate)) {
+      if (!isEmpty(startDate)) {
         fieldsToSet.startDate = startDate.getTime();
       }
-      if (!Ember.isEmpty(fieldsToSet)) {
+      if (!isEmpty(fieldsToSet)) {
         this.setProperties(fieldsToSet);
       }
     }

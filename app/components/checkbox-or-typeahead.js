@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import SelectOrTypeahead from 'hospitalrun/components/select-or-typeahead';
+const { computed, defineProperty, isArray, isEmpty, get, K } = Ember;
+
 export default SelectOrTypeahead.extend({
   checkboxesPerRow: 5,
   model: null,
 
   _getLabelFromContent: function(object) {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let optionLabelPath = this.get('optionLabelPath');
     return Ember.get(object, optionLabelPath);
   },
@@ -12,6 +15,15 @@ export default SelectOrTypeahead.extend({
   _getValueFromContent: function(object) {
     let optionValuePath = this.get('optionValuePath');
     return Ember.get(object, optionValuePath);
+=======
+    var optionLabelPath = this.get('optionLabelPath');
+    return get(object, optionLabelPath);
+  },
+
+  _getValueFromContent: function(object) {
+    var optionValuePath = this.get('optionValuePath');
+    return get(object, optionValuePath);
+>>>>>>> more of prior commit, except:
   },
 
   _mapCheckboxValues: function(value) {
@@ -22,11 +34,19 @@ export default SelectOrTypeahead.extend({
   },
 
   _setup: function() {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let property = this.get('property');
     Ember.defineProperty(this, 'errors', Ember.computed(`model.errors.${property}`, function() {
       let property = this.get('property');
       let errors = this.get(`model.errors.${property}`);
       if (!Ember.isEmpty(errors)) {
+=======
+    var property = this.get('property');
+    defineProperty(this, 'errors', computed('model.errors.' + property, function() {
+      var property = this.get('property'),
+        errors = this.get('model.errors.' + property);
+      if (!isEmpty(errors)) {
+>>>>>>> more of prior commit, except:
         return errors[0];
       }
     }));
@@ -46,10 +66,17 @@ export default SelectOrTypeahead.extend({
 
   actions: {
     checkboxChanged: function(value, checked) {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
       let property = this.get('property');
       let propertyName = `model.${property}`;
       let selectedValues = this.get(propertyName);
       if (!Ember.isArray(selectedValues)) {
+=======
+      var property = this.get('property'),
+        propertyName = 'model.' + property,
+        selectedValues = this.get(propertyName);
+      if (!isArray(selectedValues)) {
+>>>>>>> more of prior commit, except:
         selectedValues = [];
       }
       if (checked && !selectedValues.includes(value)) {
@@ -59,7 +86,7 @@ export default SelectOrTypeahead.extend({
       }
       this.set(propertyName, selectedValues);
       this.set('selection', selectedValues);
-      this.get('model').validate().catch(Ember.K);
+      this.get('model').validate().catch(K);
     }
   }
 

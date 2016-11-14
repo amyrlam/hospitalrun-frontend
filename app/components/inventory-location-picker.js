@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import SelectValues from 'hospitalrun/utils/select-values';
-export default Ember.Component.extend({
+const { Binding, Component, isEmpty, Object } = Ember;
+
+export default Component.extend({
   calculatedLocationPickers: null,
   doingSetup: false,
   label: null,
@@ -16,9 +18,15 @@ export default Ember.Component.extend({
     let selectedLocations = [];
     if (!doingSetup) {
       locationPickers.reduce(function(previousValue, item, index) {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
         let selectedLocation = item.get('selectedLocation');
         let returnValue;
         if (Ember.isEmpty(selectedLocation)) {
+=======
+        var selectedLocation = item.get('selectedLocation'),
+          returnValue;
+        if (isEmpty(selectedLocation)) {
+>>>>>>> more of prior commit, except:
           returnValue = previousValue;
         } else {
           returnValue = (previousValue + selectedLocation.get('quantity'));
@@ -34,7 +42,7 @@ export default Ember.Component.extend({
           this.set('calculatedLocationPickers', locationPickers);
         }
       } else {
-        locationPickers.addObject(Ember.Object.create());
+        locationPickers.addObject(Object.create());
       }
       this._setupLocationPickers(locationPickers, locationList);
     }
@@ -45,7 +53,7 @@ export default Ember.Component.extend({
   },
 
   _setup: function() {
-    Ember.Binding.from('selectedLocations').to('componentSelectedLocations').connect(this);
+    Binding.from('selectedLocations').to('componentSelectedLocations').connect(this);
   }.on('init'),
 
   _setupLocationPickers: function(locationPickers, locationList, setInitialLocation) {
@@ -60,25 +68,37 @@ export default Ember.Component.extend({
         return (item.get('selectedLocation.id') !== location.get('id'));
       });
     }, locationList);
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let firstPicker = locationPickers.get('firstObject');
     if (!Ember.isEmpty(firstPicker)) {
+=======
+    var firstPicker = locationPickers.get('firstObject');
+    if (!isEmpty(firstPicker)) {
+>>>>>>> more of prior commit, except:
       firstPicker.set('label', this.get('label'));
     }
     this.set('calculatedLocationPickers', locationPickers);
   },
 
   locationPickers: function() {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let locationList = this.get('locationList');
     let locationPickers = [];
     let quantityRequested = this.get('quantityRequested');
     if (Ember.isEmpty(locationList) || Ember.isEmpty(quantityRequested)) {
+=======
+    var locationList = this.get('locationList'),
+      locationPickers = [],
+      quantityRequested = this.get('quantityRequested');
+    if (isEmpty(locationList) || isEmpty(quantityRequested)) {
+>>>>>>> more of prior commit, except:
       // We need both a locationList and a quantityRequested
       return;
     }
     this.set('doingSetup', true);
     locationList.reduce(function(previousValue, location) {
       if (previousValue < quantityRequested) {
-        locationPickers.addObject(Ember.Object.create());
+        locationPickers.addObject(Object.create());
       }
       return (previousValue + location.get('quantity'));
     }, 0);

@@ -2,6 +2,7 @@ import AppointmentIndexRoute from 'hospitalrun/appointments/index/route';
 import DateFormat from 'hospitalrun/mixins/date-format';
 import Ember from 'ember';
 import { translationMacro as t } from 'ember-i18n';
+const { isEmpty } = Ember;
 
 export default AppointmentIndexRoute.extend(DateFormat, {
   editReturn: 'appointments.search',
@@ -45,7 +46,7 @@ export default AppointmentIndexRoute.extend(DateFormat, {
       });
       let { startDate } = params;
       startDate = new Date();
-      if (!Ember.isEmpty(params.startDate)) {
+      if (!isEmpty(params.startDate)) {
         startDate.setTime(params.startDate);
       }
       model.set('selectedStartingDate', startDate);

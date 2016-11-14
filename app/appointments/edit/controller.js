@@ -3,9 +3,10 @@ import AppointmentStatuses from 'hospitalrun/mixins/appointment-statuses';
 import Ember from 'ember';
 import PatientSubmodule from 'hospitalrun/mixins/patient-submodule';
 import VisitTypes from 'hospitalrun/mixins/visit-types';
+const { computed, inject, isEmpty, K, RSVP, run } = Ember;
 
 export default AbstractEditController.extend(AppointmentStatuses, PatientSubmodule, VisitTypes, {
-  appointmentsController: Ember.inject.controller('appointments'),
+  appointmentsController: inject.controller('appointments'),
   endHour: null,
   endMinute: null,
   findPatientVisits: false,
@@ -30,7 +31,7 @@ export default AbstractEditController.extend(AppointmentStatuses, PatientSubmodu
     return hourList;
   }.property(),
 
-  locationList: Ember.computed.alias('appointmentsController.locationList'),
+  locationList: computed.alias('appointmentsController.locationList'),
 
   lookupListsToUpdate: [{
     name: 'physicianList',
@@ -51,13 +52,13 @@ export default AbstractEditController.extend(AppointmentStatuses, PatientSubmodu
     return minuteList;
   }.property(),
 
-  physicianList: Ember.computed.alias('appointmentsController.physicianList'),
+  physicianList: computed.alias('appointmentsController.physicianList'),
   showTime: function() {
     let allDay = this.get('model.allDay');
     let isAdmissionAppointment = this.get('isAdmissionAppointment');
     return (!allDay && isAdmissionAppointment);
   }.property('model.allDay', 'isAdmissionAppointment'),
-  visitTypesList: Ember.computed.alias('appointmentsController.visitTypesList'),
+  visitTypesList: computed.alias('appointmentsController.visitTypesList'),
 
   cancelAction: function() {
     let returnTo = this.get('model.returnTo');
@@ -86,7 +87,7 @@ export default AbstractEditController.extend(AppointmentStatuses, PatientSubmodu
 
   beforeUpdate: function() {
     this._updateAppointmentDates();
-    return Ember.RSVP.Promise.resolve();
+    return RSVP.Promise.resolve();
   },
 
   endHourChanged: function() {
@@ -162,8 +163,8 @@ export default AbstractEditController.extend(AppointmentStatuses, PatientSubmodu
         dateToChange.minute(fieldValue);
       }
       model.set(dateFieldName, dateToChange.toDate());
-      Ember.run.once(this, function() {
-        model.validate().catch(Ember.K);
+      run.once(this, function() {
+        model.validate().catch(K);
       });
     }
   }

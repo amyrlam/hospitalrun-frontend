@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { translationMacro as t } from 'ember-i18n';
-export default Ember.Component.extend({
+const { Component, isEmpty, run } = Ember;
+
+export default Component.extend({
   tagName: 'span',
   showLoadingMessages: false,
   loadingMessages: [
@@ -22,7 +24,7 @@ export default Ember.Component.extend({
     let loadingMessages = this.get('loadingMessages');
     let idx = Math.floor(Math.random() * loadingMessages.length);
     this.set('message', loadingMessages[idx]);
-    this.set('timer', Ember.run.later(this, this._setRandomMessage, 1000));
+    this.set('timer', run.later(this, this._setRandomMessage, 1000));
   },
 
   didInsertElement: function() {
@@ -30,9 +32,15 @@ export default Ember.Component.extend({
   },
 
   willDestroyElement: function() {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let timer = this.get('timer');
     if (!Ember.isEmpty(timer)) {
       Ember.run.cancel(timer);
+=======
+    var timer = this.get('timer');
+    if (!isEmpty(timer)) {
+      run.cancel(timer);
+>>>>>>> more of prior commit, except:
     }
   }
 });

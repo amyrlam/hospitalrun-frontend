@@ -1,6 +1,9 @@
 import Ember from 'ember';
-export default Ember.Component.extend({
-  i18n: Ember.inject.service(),
+const { Component, inject, isEmpty } = Ember;
+// NOTE: Gere the $ is for jQuery and not Ember...get JSHint error '$' is not defined
+
+export default Component.extend({
+  i18n: inject.service(),
   cancelAction: 'cancel',
   closeModalAction: 'closeModal',
   hideCancelButton: false,
@@ -13,7 +16,7 @@ export default Ember.Component.extend({
   cancelButtonText: '',
   cancelBtnText: function() {
     let cancelText = this.get('cancelButtonText');
-    if (Ember.isEmpty(cancelText)) {
+    if (isEmpty(cancelText)) {
       return this.get('i18n').t('buttons.cancel');
     } else {
       return cancelText;

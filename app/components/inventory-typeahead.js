@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import TypeAhead from 'hospitalrun/components/type-ahead';
+const { isEmpty } = Ember;
+
 export default TypeAhead.extend({
   classNameBindings: ['haveInventoryItems'],
   displayKey: 'name',
@@ -16,8 +18,13 @@ export default TypeAhead.extend({
   },
 
   haveInventoryItems: function() {
+<<<<<<< ed59f6abf4d77176b93a80e80dbfede75fb9800f
     let content = this.get('content');
     if (!Ember.isEmpty(content) && content.length > 0) {
+=======
+    var content = this.get('content');
+    if (!isEmpty(content) && content.length > 0) {
+>>>>>>> more of prior commit, except:
       return 'have-inventory-items';
     }
   }.property('content'),

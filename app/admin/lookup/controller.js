@@ -191,7 +191,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
       }];
     }),
 
-    importFile: Ember.computed.alias('lookupTypeList.importFile'),
+    importFile: computed.alias('lookupTypeList.importFile'),
 
     lookupTitle: function() {
       let lookupType = this.get('model.lookupType');
@@ -199,7 +199,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
       let lookupDesc;
       if (!Ember.isEmpty(lookupType)) {
         lookupDesc = lookupTypes.findBy('value', lookupType);
-        if (!Ember.isEmpty(lookupDesc)) {
+        if (!isEmpty(lookupDesc)) {
           return lookupDesc.name;
         }
       }
@@ -223,7 +223,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
             value: defaultValues
           }));
         }
-        if (!Ember.isEmpty(lookupItem) && Ember.isEmpty(lookupItem.get('userCanAdd'))) {
+        if (!isEmpty(lookupItem) && isEmpty(lookupItem.get('userCanAdd'))) {
           lookupItem.set('userCanAdd', true);
         }
         this.set('model.userCanAdd', lookupItem.get('userCanAdd'));
@@ -237,7 +237,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
       if (!Ember.isEmpty(values)) {
         values.sort(this._sortValues);
       }
-      return Ember.ArrayProxy.create({ content: Ember.A(values) });
+      return ArrayProxy.create({ content: A(values) });
     }.property('model.lookupType', 'lookupTypeList.value'),
 
     showOrganizeByType: function() {
@@ -310,7 +310,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
     },
 
     _sortValues: function(a, b) {
-      return Ember.compare(a.toLowerCase(), b.toLowerCase());
+      return compare(a.toLowerCase(), b.toLowerCase());
     },
 
     activateKeyboard: Ember.on('init', function() {
@@ -324,7 +324,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
 
     actions: {
       addValue: function() {
-        this.send('openModal', 'admin.lookup.edit', Ember.Object.create({
+        this.send('openModal', 'admin.lookup.edit', Object.create({
           isNew: true
         }));
       },
@@ -337,8 +337,8 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
         }
       },
       editValue: function(value) {
-        if (!Ember.isEmpty(value)) {
-          this.send('openModal', 'admin.lookup.edit', Ember.Object.create({
+        if (!isEmpty(value)) {
+          this.send('openModal', 'admin.lookup.edit', Object.create({
             isNew: false,
             originalValue: value.toString(),
             value: value.toString()

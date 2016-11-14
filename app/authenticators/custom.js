@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
+const { $, inject, isEmpty, RSVP, run } = Ember;
+
 export default BaseAuthenticator.extend({
-  config: Ember.inject.service(),
-  database: Ember.inject.service(),
+  config: inject.service(),
+  database: inject.service(),
   serverEndpoint: '/db/_session',
   useGoogleAuth: false,
 
@@ -11,13 +13,13 @@ export default BaseAuthenticator.extend({
     @private
   */
   _absolutizeExpirationTime: function(expiresIn) {
-    if (!Ember.isEmpty(expiresIn)) {
+    if (!isEmpty(expiresIn)) {
       return new Date((new Date().getTime()) + (expiresIn - 5) * 1000).getTime();
     }
   },
 
   _checkUser: function(user) {
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new RSVP.Promise((resolve, reject) => {
       this._makeRequest('POST', { name: user.name }, '/chkuser').then((response) => {
         if (response.error) {
           reject(response);
@@ -34,13 +36,13 @@ export default BaseAuthenticator.extend({
   },
 
   _getPromise: function(type, data) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new RSVP.Promise(function(resolve, reject) {
       this._makeRequest(type, data).then(function(response) {
-        Ember.run(function() {
+        run(function() {
           resolve(response);
         });
       }, function(xhr) {
-        Ember.run(function() {
+        run(function() {
           reject(xhr.responseJSON || xhr.responseText);
         });
       });
@@ -51,7 +53,7 @@ export default BaseAuthenticator.extend({
     if (!url) {
       url = this.serverEndpoint;
     }
-    return Ember.$.ajax({
+    return $.ajax({
       url: url,
       type: type,
       data: data,
@@ -80,7 +82,7 @@ export default BaseAuthenticator.extend({
         token_secret: credentials.params.s2,
         name: credentials.params.i
       };
-      return new Ember.RSVP.Promise((resolve, reject) => {
+      return new RSVP.Promise((resolve, reject) => {
         this._checkUser(sessionCredentials).then((user) => {
           resolve(user);
           this.get('config').setCurrentUser(user.name);
@@ -108,7 +110,7 @@ export default BaseAuthenticator.extend({
 
   invalidate: function() {
     if (this.useGoogleAuth) {
-      return new Ember.RSVP.resolve();
+      return new RSVP.resolve();
     } else {
       return this._getPromise('DELETE');
     }

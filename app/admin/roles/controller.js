@@ -2,13 +2,14 @@ import AbstractEditController from 'hospitalrun/controllers/abstract-edit-contro
 import Ember from 'ember';
 import UserRoles from 'hospitalrun/mixins/user-roles';
 import UserSession from 'hospitalrun/mixins/user-session';
+const { computed, isEmpty } = Ember;
 
 export default AbstractEditController.extend(UserRoles, UserSession, {
   currentRole: '',
   disabledAction: false,
   hideCancelButton: true,
   updateCapability: 'user_roles',
-  filteredRoles: Ember.computed.filter('userRoles', function(userRole) {
+  filteredRoles: computed.filter('userRoles', function(userRole) {
     return (userRole.name !== 'System Administrator');
   }),
 
