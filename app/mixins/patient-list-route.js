@@ -9,7 +9,7 @@ export default Ember.Mixin.create({
     let patientQuery = {
       startkey: 'patient_',
       endkey: 'patient_\uffff',
-      include_docs: true
+      includeDocs: true
     };
     let database = this.get('database');
     database.queryMainDB(patientQuery).then(function(result) {

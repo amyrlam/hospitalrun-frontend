@@ -73,11 +73,11 @@ export default BaseAuthenticator.extend({
     if (credentials.google_auth) {
       this.useGoogleAuth = true;
       let sessionCredentials = {
-        google_auth: true,
-        consumer_key: credentials.params.k,
-        consumer_secret: credentials.params.s1,
+        googleAuth: true,
+        consumerKey: credentials.params.k,
+        consumerSecret: credentials.params.s1,
         token: credentials.params.t,
-        token_secret: credentials.params.s2,
+        tokenSecret: credentials.params.s2,
         name: credentials.params.i
       };
       return new Ember.RSVP.Promise((resolve, reject) => {
@@ -92,7 +92,7 @@ export default BaseAuthenticator.extend({
       let data = { name: credentials.identification, password: credentials.password };
       this._makeRequest('POST', data).then((response) => {
         response.name = data.name;
-        response.expires_at = this._absolutizeExpirationTime(600);
+        response.expiresAt = this._absolutizeExpirationTime(600);
         this._checkUser(response).then((user) => {
           this.get('config').setCurrentUser(user.name);
           let database = this.get('database');

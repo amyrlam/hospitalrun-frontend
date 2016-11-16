@@ -17,7 +17,7 @@ export default Ember.Mixin.create({
       let pricingQuery = {
         startkey: [pricingCategory, null, null, minId],
         endkey: [pricingCategory, {}, {}, maxId],
-        include_docs: true
+        includeDocs: true
       };
       database.queryMainDB(pricingQuery, 'pricing_by_category').then(function(result) {
         let pricingList = result.rows.map(function(item) {

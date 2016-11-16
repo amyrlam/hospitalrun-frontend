@@ -41,7 +41,7 @@ export default AbstractModel.extend({
     procedureDate: {
       presence: true
     },
-    display_procedureDate: {
+    displayProcedureDate: {
       presence: {
         message: 'Please select a valid date'
       }

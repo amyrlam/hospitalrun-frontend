@@ -455,7 +455,7 @@ export default AbstractReportController.extend(LocationName, ModalHelper, Number
     return this._findInventoryItems({
       startkey: [reportTimes.startTime, 'invPurchase_'],
       endkey: [reportTimes.endTime, 'invPurchase_\uffff'],
-      include_docs: true
+      includeDocs: true
     }, 'inventory_purchase_by_date_received', inventoryMap, 'purchaseObjects');
   },
 
@@ -463,7 +463,7 @@ export default AbstractReportController.extend(LocationName, ModalHelper, Number
     return this._findInventoryItems({
       startkey: ['Completed', reportTimes.startTime, 'invRequest_'],
       endkey: ['Completed', reportTimes.endTime, 'invRequest_\uffff'],
-      include_docs: true
+      includeDocs: true
     }, 'inventory_request_by_status', inventoryMap, 'requestObjects');
   },
 
@@ -558,7 +558,7 @@ export default AbstractReportController.extend(LocationName, ModalHelper, Number
     database.queryMainDB({
       startkey: [reportTimes.startTime, 'invPurchase_'],
       endkey: [reportTimes.endTime, 'invPurchase_\uffff'],
-      include_docs: true
+      includeDocs: true
     }, 'inventory_purchase_by_expiration_date').then(function(inventoryPurchases) {
       let purchaseDocs = [];
       let inventoryIds = [];
@@ -1136,7 +1136,7 @@ export default AbstractReportController.extend(LocationName, ModalHelper, Number
       }
       database.queryMainDB({
         keys: inventoryIds,
-        include_docs: true
+        includeDocs: true
       }).then(function(inventoryItems) {
         inventoryItems.rows.forEach(function(inventoryItem) {
           if (inventoryItem.doc && inventoryItem.doc.archived !== true) {

@@ -6,7 +6,7 @@ import FakeServer, { stubRequest } from 'ember-cli-fake-server';
 function addAllUsers(assert) {
   stubRequest('get', '/db/_users/_all_docs', function(request) {
     let expectedQuery = {
-      include_docs: 'true',
+      includeDocs: 'true',
       startkey: '"org.couchdb.user"'
     };
     assert.equal(JSON.stringify(request.queryParams), JSON.stringify(expectedQuery), 'All Users request sent to the server');
@@ -132,13 +132,13 @@ test('delete user', function(assert) {
     stubRequest('put', '/db/_users/org.couchdb.user:joe@donuts.com', function(request) {
       let expectedBody = {
         _id: 'org.couchdb.user:joe@donuts.com',
-        derived_key: 'derivedkeyhere',
+        derivedKey: 'derivedkeyhere',
         deleted: true,
         displayName: 'Joe Bagadonuts',
         email: 'joe@donuts.com',
         iterations: 10,
         name: 'joe@donuts.com',
-        password_scheme: 'pbkdf2',
+        passwordScheme: 'pbkdf2',
         _rev: '1-ef3d54502f2cc8e8f73d8547881f0836',
         roles: ['deleted'],
         salt: 'saltgoeshere',

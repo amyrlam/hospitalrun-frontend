@@ -203,7 +203,7 @@ export default AbstractEditController.extend(BloodTypes, ReturnTo, UserSession, 
                 url: fileEntry.toURL(),
                 _attachments: {
                   file: {
-                    content_type: photoFile.type,
+                    contentType: photoFile.type,
                     data: dataUrlParts[1]
                   }
                 }

@@ -30,7 +30,7 @@ export default Ember.Service.extend({
   loadConfig() {
     let config = this.get('configDB');
     let options = {
-      include_docs: true,
+      includeDocs: true,
       keys: [
         'config_consumer_key',
         'config_consumer_secret',
@@ -132,7 +132,7 @@ export default Ember.Service.extend({
   _getOauthConfigs: function(configKeys) {
     let configDB = this.get('configDB');
     let options = {
-      include_docs: true,
+      includeDocs: true,
       keys: configKeys
     };
     return configDB.allDocs(options);

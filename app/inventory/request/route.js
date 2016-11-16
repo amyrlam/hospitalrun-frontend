@@ -31,7 +31,7 @@ export default AbstractEditRoute.extend({
     let inventoryQuery = {
       startkey: 'inventory_',
       endkey: 'inventory_\uffff',
-      include_docs: true
+      includeDocs: true
     };
     this.get('database').queryMainDB(inventoryQuery).then(function(result) {
       controller.set('inventoryItems', result.rows);

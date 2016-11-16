@@ -185,7 +185,7 @@ export default Adapter.extend(PouchAdapterUtils, {
         }
       }
       queryParams.reduce = false;
-      queryParams.include_docs = false;
+      queryParams.includeDocs = false;
       if (query.mapReduce) {
         mapReduce = query.mapReduce;
       } else if (query.containsValue) {
@@ -196,7 +196,7 @@ export default Adapter.extend(PouchAdapterUtils, {
         try {
           if (mapReduce) {
             if (query.useList) {
-              queryParams.include_docs = true;
+              queryParams.includeDocs = true;
               let listParams = {
                 query: queryParams
               };

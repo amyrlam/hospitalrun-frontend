@@ -36,7 +36,7 @@ export default AbstractEditRoute.extend(FulfillRequest, InventoryLocations, Pati
     this._super(controller, model);
     let inventoryQuery = {
       key: 'Medication',
-      include_docs: true
+      includeDocs: true
     };
     let inventoryItemId = model.get('inventoryItem.id');
     let patient = model.get('patient');

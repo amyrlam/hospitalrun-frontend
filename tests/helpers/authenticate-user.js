@@ -11,7 +11,7 @@ Ember.Test.registerHelper('authenticateUser', function(app, attrs = {}) {
   authenticateSession(app, merge({
     name: 'hradmin',
     roles: ['System Administrator', 'admin', 'user'],
-    expires_at: expiresAt,
+    expiresAt: expiresAt,
     role: 'System Administrator',
     prefix: 'p1'
   }, attrs));

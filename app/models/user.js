@@ -3,15 +3,15 @@ import EmailValidation from 'hospitalrun/utils/email-validation';
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 let User = DS.Model.extend(EmberValidations, {
-  derived_key: DS.attr('string'),
+  derivedKey: DS.attr('string'),
   deleted: DS.attr('boolean'),
   displayName: DS.attr('string'),
   email: DS.attr('string'),
   iterations: DS.attr(),
   name: DS.attr('string'),
   password: DS.attr('string'),
-  password_scheme: DS.attr('string'),
-  password_sha: DS.attr('string'),
+  passwordScheme: DS.attr('string'),
+  passwordSha: DS.attr('string'),
   rev: DS.attr('string'),
   roles: DS.attr(),
   salt: DS.attr('string'),

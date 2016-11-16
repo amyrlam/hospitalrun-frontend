@@ -360,7 +360,7 @@ export default Ember.Controller.extend(BillingCategories, EKMixin,
             lookupTypeList.setProperties({
               _attachments: {
                 file: {
-                  content_type: fileToImport.type,
+                  contentType: fileToImport.type,
                   data: dataUrlParts[1]
                 }
               },

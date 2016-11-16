@@ -148,7 +148,7 @@ export default DS.RESTAdapter.extend(UserSession, {
   findAll: function() {
     let ajaxData = {
       data: {
-        include_docs: true,
+        includeDocs: true,
         startkey: '"org.couchdb.user"'
       }
     };

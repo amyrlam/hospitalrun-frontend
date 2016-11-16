@@ -27,6 +27,7 @@ module.exports = {
   },
 
   rules: {
+    'camelcase': 2,
     'no-console': 0
   }
 };

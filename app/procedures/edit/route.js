@@ -20,7 +20,7 @@ export default AbstractEditRoute.extend(ChargeRoute, {
     this._super(controller, model);
     let medicationQuery = {
       key: 'Medication',
-      include_docs: true
+      includeDocs: true
     };
     this.get('database').queryMainDB(medicationQuery, 'inventory_by_type').then(function(result) {
       let medicationList = result.rows.map(function(medication) {

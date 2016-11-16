@@ -89,7 +89,7 @@ function setupConfigs() {
       resolve();
     } else {
       configDB.allDocs({
-        include_docs: true
+        includeDocs: true
       }).then((result) => {
         configs = {};
         result.rows.forEach((row) => {
